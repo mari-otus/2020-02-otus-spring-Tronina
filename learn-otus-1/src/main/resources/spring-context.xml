@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="csvMapper" class="com.fasterxml.jackson.dataformat.csv.CsvMapper"/>
+    <bean id="QuestionaryDao" class="ru.otus.spring.dao.QuestionDaoSimple">
+        <constructor-arg name="resource" value="classpath:question.csv"/>
+        <constructor-arg name="csvMapper" ref="csvMapper"/>
+    </bean>
+    <bean id="PersonService" class="ru.otus.spring.service.QuestionServiceImpl">
+        <constructor-arg name="dao" ref="QuestionaryDao"/>
+    </bean>
+    <bean id="Questionary" class="ru.otus.spring.service.QuestionaryServiceImpl"/>
+
+</beans>
