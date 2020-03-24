@@ -1,0 +1,12 @@
+spring:
+  messages:
+    encoding: UTF-8
+    basename: i18n/question
+csv:
+  file: question.csv
+  locale: en
+
+logging:
+  level:
+    ru.otus: info
+    org.springframework: info
