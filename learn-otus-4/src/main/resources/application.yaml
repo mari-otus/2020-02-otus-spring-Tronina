@@ -1,0 +1,7 @@
+csv:
+  file: question.csv
+
+logging:
+  level:
+    ru.otus: info
+    org.springframework: info
