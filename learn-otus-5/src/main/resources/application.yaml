@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/library
+    username: postgres
+    password: postgres
+    initialization-mode: always
+    schema: schema.sql
+    data: data.sql
+
+logging:
+  level:
+    ru.otus: info
+    org.springframework: info
