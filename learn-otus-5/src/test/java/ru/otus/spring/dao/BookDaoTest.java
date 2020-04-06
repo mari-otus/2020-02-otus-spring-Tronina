@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
+import ru.otus.spring.dao.book.BookDaoJdbc;
 import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Genre;
@@ -32,13 +33,6 @@ public class BookDaoTest {
     @Autowired
     BookDaoJdbc bookDao;
 
-    @DisplayName("возвращать ожидаемое количество книг из БД")
-    @Test
-    public void shouldReturnExpectedCount() {
-        int actualCount = bookDao.count();
-        assertThat(actualCount).isEqualTo(EXPECTED_BOOK_COUNT);
-    }
-
     @DisplayName("добавлять книгу с авторами и жанрами в БД")
     @Test
     public void shouldInsertBookWithAuthorsAndGenres() {
@@ -47,7 +41,7 @@ public class BookDaoTest {
                         .yearEdition(1987)
                         .genres(Arrays.asList(
                                 Genre.builder()
-                                     .name("Жанр1")
+                                     .name("Приключение")
                                      .build(),
                                 Genre.builder()
                                      .name("Роман")
@@ -56,9 +50,6 @@ public class BookDaoTest {
                         .authors(Arrays.asList(
                                 Author.builder()
                                       .fio("Толстой Лев Николаевич")
-                                      .build(),
-                                Author.builder()
-                                      .fio("Иванов Иван")
                                       .build()
                         ))
                         .build();
@@ -86,10 +77,10 @@ public class BookDaoTest {
                                 ))
                                 .authors(Arrays.asList(
                                         Author.builder()
-                                              .fio("Струкгацкий Аркадий Натанович")
+                                              .fio("Стругацкий Аркадий Натанович")
                                               .build(),
                                         Author.builder()
-                                              .fio("Струкгацкий Борис Натанович")
+                                              .fio("Стругацкий Борис Натанович")
                                               .build()
                                 ))
                                 .build();

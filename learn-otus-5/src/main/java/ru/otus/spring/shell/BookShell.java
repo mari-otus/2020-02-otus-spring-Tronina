@@ -7,7 +7,7 @@ import org.springframework.shell.standard.ShellOption;
 import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Genre;
-import ru.otus.spring.service.BookService;
+import ru.otus.spring.service.book.BookService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,16 +28,11 @@ public class BookShell {
      */
     private final BookService bookService;
 
-    @ShellMethod(key = "book-count", value = "Выводит общее количесвто книг")
-    public void bookCount() {
-        int countBook = bookService.getCountBook();
-        System.out.println("Всего книг: " + countBook);
-    }
-
     @ShellMethod(key = "book-all", value = "Выводит список всех книг")
     public void bookAll() {
         List<Book> books = bookService.getAllBook();
         books.forEach(System.out::println);
+        System.out.println("Всего книг: " + books.size());
     }
 
     @ShellMethod(key = "book-get", value = "Выводит книгу по идентификатору")

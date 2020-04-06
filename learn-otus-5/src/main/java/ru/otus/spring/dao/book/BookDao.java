@@ -1,4 +1,4 @@
-package ru.otus.spring.dao;
+package ru.otus.spring.dao.book;
 
 import ru.otus.spring.domain.Book;
 
@@ -6,18 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Репозиторий для работы с книгами.
+ * DAO для работы с книгами.
  *
  * @author Mariya Tronina
  */
 public interface BookDao {
-
-    /**
-     * Возвращает общее количесвто книг.
-     *
-     * @return количесвто книг
-     */
-    int count();
 
     /**
      * Добавляет книгу.
@@ -38,15 +31,15 @@ public interface BookDao {
     /**
      * Возвращает список всех книг.
      *
-     * @return спсиок книг
+     * @return список книг
      */
     List<Book> getAll();
 
     /**
-     * Удаляет книгу по идентфикатору.
+     * Удаляет книгу по идентификатору.
      *
      * @param id идентификатор книги в БД
-     * @return true - крига успешно удалена, иначе false
+     * @return true - книга успешно удалена, иначе false
      */
     boolean deleteById(long id);
 }

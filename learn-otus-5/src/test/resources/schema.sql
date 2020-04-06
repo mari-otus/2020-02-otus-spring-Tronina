@@ -96,4 +96,4 @@ alter table book_genre
 alter table book_genre
     add constraint genre_fk
         foreign key (genre_id) references genre
-            on update cascade on delete cascade;
+            on update cascade on delete no action;

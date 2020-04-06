@@ -1,4 +1,4 @@
-package ru.otus.spring.dao;
+package ru.otus.spring.dao.book;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * JDBC-реализация репозитория для работы с книгами.
+ * JDBC-реализация DAO для работы с книгами.
  *
  * @author Mariya Tronina
  */
@@ -26,11 +26,6 @@ import java.util.Optional;
 public class BookDaoJdbc implements BookDao {
 
     private final NamedParameterJdbcOperations jdbc;
-
-    @Override
-    public int count() {
-        return jdbc.getJdbcOperations().queryForObject("select count(id) from book", Integer.class);
-    }
 
     @Override
     public long insert(final Book book) {
@@ -51,11 +46,6 @@ public class BookDaoJdbc implements BookDao {
                             }}
                     )
             );
-            jdbc.batchUpdate("insert into author (fio) " +
-                        "select * from (values(:fio)) as t (fio) " +
-                             "where not exists(select 1 from author " +
-                             "where upper(fio) = upper(t.fio))",
-                    mapList.toArray(new Map[book.getAuthors().size()]));
             jdbc.batchUpdate("insert into book_author (book_id, author_id)  " +
                              "select :book_id, id from author " +
                              "where upper(fio) = upper(:fio)",
@@ -72,11 +62,6 @@ public class BookDaoJdbc implements BookDao {
                             }}
                     )
             );
-            jdbc.batchUpdate("insert into genre (name) " +
-                             "select * from (values(:genre_name)) as t (name) " +
-                             "where not exists(select 1 from genre " +
-                             "where upper(name) = upper(t.name))",
-                    mapList.toArray(new Map[book.getGenres().size()]));
             jdbc.batchUpdate("insert into book_genre (book_id, genre_id)  " +
                              "select :book_id, id from genre " +
                              "where upper(name) = upper(:genre_name)",
@@ -90,15 +75,16 @@ public class BookDaoJdbc implements BookDao {
     public Optional<Book> getById(final long id) {
         Map<String, Object> param = Collections.singletonMap("id", id);
         try {
-            return Optional.of(jdbc.queryForObject("select b.*, " +
-                                       "a.id as author_id, a.fio, " +
-                                       "g.id as genre_id, g.name as genre_name " +
-                                       "from book b " +
-                                       "left join book_author ba on (ba.book_id = b.id) " +
-                                       "left join author a on (ba.author_id = a.id) " +
-                                       "left join book_genre bg on (bg.book_id = b.id) " +
-                                       "left join genre g on (bg.genre_id = g.id) " +
-                                       "where b.id = :id", param, new BookRowMapper()));
+            return Optional.of(jdbc.queryForObject("select " +
+                                                   "b.id, b.name, b.year_edition, " +
+                                                   "a.id as author_id, a.fio, " +
+                                                   "g.id as genre_id, g.name as genre_name " +
+                                                   "from book b " +
+                                                   "left join book_author ba on (ba.book_id = b.id) " +
+                                                   "left join author a on (ba.author_id = a.id) " +
+                                                   "left join book_genre bg on (bg.book_id = b.id) " +
+                                                   "left join genre g on (bg.genre_id = g.id) " +
+                                                   "where b.id = :id", param, new BookRowMapper()));
         } catch (IncorrectResultSizeDataAccessException e) {
             return Optional.empty();
         }
@@ -107,8 +93,9 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public List<Book> getAll() {
-        return jdbc.query("select b.*, " +
-                          "a.id as author_id, a.*, " +
+        return jdbc.query("select " +
+                          "b.id, b.name, b.year_edition, " +
+                          "a.id as author_id, a.fio, " +
                           "g.id as genre_id, g.name as genre_name " +
                           "from book b " +
                           "left join book_author ba on (ba.book_id = b.id) " +

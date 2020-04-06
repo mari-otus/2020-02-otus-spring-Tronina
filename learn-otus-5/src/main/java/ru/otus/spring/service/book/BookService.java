@@ -1,4 +1,4 @@
-package ru.otus.spring.service;
+package ru.otus.spring.service.book;
 
 import ru.otus.spring.domain.Book;
 
@@ -33,13 +33,6 @@ public interface BookService {
      * @return список книг
      */
     List<Book> getAllBook();
-
-    /**
-     * Возвращает общее количесвто книг.
-     *
-     * @return количесвто книг
-     */
-    int getCountBook();
 
     /**
      * Удаляет книгу по идентификатору.

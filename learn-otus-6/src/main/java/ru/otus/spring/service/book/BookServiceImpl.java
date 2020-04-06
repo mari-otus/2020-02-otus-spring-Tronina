@@ -1,8 +1,8 @@
-package ru.otus.spring.service;
+package ru.otus.spring.service.book;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.otus.spring.dao.BookDao;
+import ru.otus.spring.dao.book.BookDao;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.exception.BookNotFoundException;
 
