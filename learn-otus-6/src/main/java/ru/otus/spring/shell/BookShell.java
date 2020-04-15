@@ -100,7 +100,8 @@ public class BookShell {
         List<Comment> comments = commentBookService.getAllCommentByBook(bookId);
         System.out.println("Комментарии к книге: " + bookService.getBook(bookId));
         System.out.println("Всего комментариев: " + comments.size());
-        comments.forEach(System.out::println);
+        comments.forEach(comment ->
+                System.out.println(String.format("%d. %s", comment.getId(), comment.getComment())));
     }
 
     @ShellMethod(key = "book-del-comment", value = "Удаляет комментарий")

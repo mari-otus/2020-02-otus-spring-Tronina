@@ -1,11 +1,12 @@
 package ru.otus.spring.repository.comment;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Comment;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -13,13 +14,13 @@ import java.util.List;
  *
  * @author Mariya Tronina
  */
-@Transactional
 @Repository
 public class CommentBookRepositoryJpa implements CommentBookRepository {
 
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     @Override
     public Comment save(final Comment comment) {
         if (comment.getId() == null) {
@@ -30,6 +31,7 @@ public class CommentBookRepositoryJpa implements CommentBookRepository {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Comment> getAllByBookId(final long bookId) {
         TypedQuery<Comment> query = em.createQuery(
@@ -39,11 +41,14 @@ public class CommentBookRepositoryJpa implements CommentBookRepository {
         return query.getResultList();
     }
 
+    @Transactional
     @Override
     public boolean deleteById(long commentId) {
-        Query query = em.createQuery("delete from Comment с where с.id = :id");
-        query.setParameter("id", commentId);
-        int cntRowDelete = query.executeUpdate();
-        return cntRowDelete > 0;
+        Comment comment = em.find(Comment.class, commentId);
+        if (comment != null) {
+            em.remove(comment);
+            return true;
+        }
+        return false;
     }
 }
