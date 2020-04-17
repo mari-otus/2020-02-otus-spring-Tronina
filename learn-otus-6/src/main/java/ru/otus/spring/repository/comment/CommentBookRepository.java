@@ -2,8 +2,6 @@ package ru.otus.spring.repository.comment;
 
 import ru.otus.spring.domain.Comment;
 
-import java.util.List;
-
 /**
  * Репозиторий для работы с комментариями книги.
  *
@@ -18,14 +16,6 @@ public interface CommentBookRepository {
      * @return комментарий
      */
     Comment save(Comment comment);
-
-    /**
-     * Возвращает список всех комментариев у книги.
-     *
-     * @param bookId идентификатор книги
-     * @return список комментариев
-     */
-    List<Comment> getAllByBookId(long bookId);
 
     /**
      * Удаляет комментарий по идентификатору.

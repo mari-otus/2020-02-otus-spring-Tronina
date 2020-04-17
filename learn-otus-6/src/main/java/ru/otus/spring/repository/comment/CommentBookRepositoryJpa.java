@@ -6,8 +6,6 @@ import ru.otus.spring.domain.Comment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import java.util.List;
 
 /**
  * JPA-реализация репозитория для работы с комментариями.
@@ -29,16 +27,6 @@ public class CommentBookRepositoryJpa implements CommentBookRepository {
         } else {
             return em.merge(comment);
         }
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<Comment> getAllByBookId(final long bookId) {
-        TypedQuery<Comment> query = em.createQuery(
-                "select с from Comment с where с.book.id = :bookId",
-                Comment.class);
-        query.setParameter("bookId", bookId);
-        return query.getResultList();
     }
 
     @Transactional

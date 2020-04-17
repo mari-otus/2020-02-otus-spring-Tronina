@@ -27,10 +27,12 @@ import java.util.stream.Collectors;
 public class BookShell {
 
     /**
-     * Сервис для работы со списком вопросов.
+     * Сервис для работы с книгами.
      */
     private final BookService bookService;
-
+    /**
+     * Сервис для работы с комментариями книг.
+     */
     private final CommentBookService commentBookService;
 
     @ShellMethod(key = "book-all", value = "Выводит список всех книг")
@@ -80,7 +82,7 @@ public class BookShell {
                         .build();
         Book bookSaved = bookService.addBook(book);
         System.out.println("Книга добавлена с идентификатором: " + bookSaved.getId()
-                           + "\n" + bookService.getBook(bookSaved.getId()));
+                           + "\n" + bookSaved);
     }
 
     @ShellMethod(key = "book-add-comment", value = "Добавляет комментарий к книге")
@@ -97,9 +99,7 @@ public class BookShell {
 
     @ShellMethod(key = "book-all-comment", value = "Выводит все комментарии для указанной книги")
     public void bookGetAllComment(@ShellOption({"id"}) long bookId) {
-        List<Comment> comments = commentBookService.getAllCommentByBook(bookId);
-        System.out.println("Комментарии к книге: " + bookService.getBook(bookId));
-        System.out.println("Всего комментариев: " + comments.size());
+        List<Comment> comments = commentBookService.getAllComment(bookId);
         comments.forEach(comment ->
                 System.out.println(String.format("%d. %s", comment.getId(), comment.getComment())));
     }

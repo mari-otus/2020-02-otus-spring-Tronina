@@ -24,7 +24,7 @@ public interface CommentBookService {
      * @param bookId идентификатор книги
      * @return список комментариев
      */
-    List<Comment> getAllCommentByBook(long bookId);
+    List<Comment> getAllComment(long bookId);
 
     /**
      * Удаляет комментарий по идентификатору.

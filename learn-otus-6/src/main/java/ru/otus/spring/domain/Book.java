@@ -76,7 +76,7 @@ public class Book {
      */
     @ToString.Exclude
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL,
-               fetch = FetchType.EAGER, mappedBy = "book")
+               fetch = FetchType.LAZY, mappedBy = "book")
     private List<Comment> comments;
 
 }

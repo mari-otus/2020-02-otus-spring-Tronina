@@ -7,18 +7,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
-import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Comment;
-import ru.otus.spring.domain.Genre;
 import ru.otus.spring.repository.comment.CommentBookRepositoryJpa;
-
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -56,15 +47,6 @@ public class CommentBookRepositoryTest {
 
         assertThat(actualComment).isNotNull();
         assertThat(actualComment.equals(expectedComment));
-    }
-
-    @DisplayName("возвращать все комментарии книги из БД")
-    @Test
-    public void shouldGetAllCommentByBook() {
-        List<Comment> actualCommentList = commentBookRepositoryJpa.getAllByBookId(DEFAULT_BOOK_ID);
-        assertThat(actualCommentList).isNotEmpty()
-                                  .hasSize(EXPECTED_COMMENT_COUNT)
-                                  .allMatch(comment -> Objects.nonNull(comment));
     }
 
     @DisplayName("удалять существующий комментарий книги из БД")
