@@ -12,4 +12,5 @@
 3. "Чёрная магия" Spring Boot - каталог `learn-otus-3`
 4. Продвинутая конфигурация Spring-приложений - каталог `learn-otus-4`
 5. DAO на Spring JDBC - каталог `learn-otus-5`
+6. JPQL, Spring ORM, DAO на основе Spring ORM + JPA - каталог `learn-otus-6`
 

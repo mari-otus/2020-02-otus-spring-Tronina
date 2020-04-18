@@ -2,9 +2,9 @@ package ru.otus.spring.service.book;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.otus.spring.dao.book.BookDao;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.exception.BookNotFoundException;
+import ru.otus.spring.repository.book.BookRepository;
 
 import java.util.List;
 
@@ -20,30 +20,25 @@ public class BookServiceImpl implements BookService {
     /**
      * Репозиторий для работы с книгами.
      */
-    private final BookDao bookDao;
+    private final BookRepository bookRepository;
 
     @Override
-    public long addBook(final Book book) {
-        return bookDao.insert(book);
+    public Book addBook(final Book book) {
+        return bookRepository.save(book);
     }
 
     @Override
     public Book getBook(final long bookId) {
-        return bookDao.getById(bookId).orElseThrow(BookNotFoundException::new);
+        return bookRepository.getById(bookId).orElseThrow(BookNotFoundException::new);
     }
 
     @Override
     public List<Book> getAllBook() {
-        return bookDao.getAll();
-    }
-
-    @Override
-    public int getCountBook() {
-        return bookDao.count();
+        return bookRepository.getAll();
     }
 
     @Override
     public boolean deleteBook(final long bookId) {
-        return bookDao.deleteById(bookId);
+        return bookRepository.deleteById(bookId);
     }
 }
