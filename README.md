@@ -13,4 +13,5 @@
 4. Продвинутая конфигурация Spring-приложений - каталог `learn-otus-4`
 5. DAO на Spring JDBC - каталог `learn-otus-5`
 6. JPQL, Spring ORM, DAO на основе Spring ORM + JPA - каталог `learn-otus-6`
+7. Библиотека на Spring Data JPA - каталог `learn-otus-7`
 
