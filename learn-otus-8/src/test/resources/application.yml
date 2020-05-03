@@ -1,0 +1,10 @@
+spring:
+  shell:
+    interactive:
+      enabled: false
+  data:
+    mongodb:
+      host: localhost
+      port: 0
+      database: dblibrary
+    sql-script-encoding: utf-8
