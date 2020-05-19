@@ -1,0 +1,27 @@
+.Book {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+}
+
+.Book-Body {
+  flex: 1;
+  max-width: 800px;
+  min-width: 500px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.Book-TextField {
+  &.MuiTextField-root {
+    margin-right: 10px;
+  }
+}
+
+.Book-Button {
+  &.MuiButtonBase-root {
+    margin-right: 10px;
+  }
+}
+

@@ -1,0 +1,30 @@
+.Books {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Books-Body {
+  flex: 1;
+  min-width: 700px;
+}
+
+.Books-Action-Deleted {
+  &:hover {
+    background-color: rgba($color: #6d6d6d, $alpha: 0.1);
+    font-weight: bold;
+  }
+  padding: 40px;
+  position: relative;
+  cursor: pointer;
+}
+
+.Books-Action-Edit {
+  &:hover {
+    background-color: rgba($color: #6d6d6d, $alpha: 0.1);
+    font-weight: bold;
+  }
+  padding: 40px;
+  position: relative;
+  cursor: pointer;
+}

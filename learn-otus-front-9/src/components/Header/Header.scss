@@ -1,0 +1,69 @@
+//.Header {
+//  color: white;
+//  background-color: #039BE5;
+//  height: 80px;
+//  display: flex;
+//  flex: 1;
+//  flex-direction: row;
+//  justify-content: start;
+//  align-items: center;
+//  width: 100%;
+//}
+
+.Test {
+  width: 90%;
+}
+
+.Header {
+  &.MuiToolbar-root {
+    flex-grow: 1;
+    flex-shrink: 1;
+  };
+  &.MuiToolbar-button {
+    margin-right: 10px;
+  }
+}
+
+.Book-Button {
+  &.MuiButtonBase-root {
+    white-space: nowrap;
+  }
+}
+
+.Header-Body {
+  width: 100%;
+  max-width: 800px;
+  min-width: 500px;
+  display: flex;
+  flex-direction: row;
+}
+
+.Header-Icon {
+  width: 45px;
+  height: 45px;
+  fill: white;
+  margin-left: 0px;
+  color: white;
+  font-style: italic;
+}
+
+.Header-Title {
+  font-size: 24px;
+  margin-left: 20px;
+  color: #A1D6E5;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.Header-Active-Title {
+  font-size: 24px;
+  margin-left: 20px;
+  color: white;
+  font-weight: bold;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
