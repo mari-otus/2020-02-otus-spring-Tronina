@@ -16,14 +16,14 @@ export default class Books extends Component {
   state = {
     data: null,
     isLoading: false,
-  }
+  };
 
   componentDidMount() {
     this.fetchBooks()
   }
 
   fetchBooks() {
-    this.setState({ isLoading: true })
+    this.setState({ isLoading: true });
 
     fetch("/library/api/books/")
       .then(res => res.json())
@@ -46,7 +46,7 @@ export default class Books extends Component {
   deleteBook(id) {
     if (window.confirm('Are you sure you wish to delete this item?')) {
 
-      this.setState({ isLoading: true })
+      this.setState({ isLoading: true });
 
       fetch("/library/api/books/" + id, {
         method: 'DELETE',
@@ -73,7 +73,7 @@ export default class Books extends Component {
     const { history } = this.props;
 
     const rowEvents = {
-      onDoubleClick: (e, row, rowIndex) => {
+      onDoubleClick: (e, row) => {
         history.push(`/library/books/${row.id}`);
       }
     };
@@ -82,7 +82,7 @@ export default class Books extends Component {
       error,
       data,
       isLoading
-    } = this.state
+    } = this.state;
 
     if (error) {
       return (
@@ -113,10 +113,10 @@ export default class Books extends Component {
                 dataField: 'authors',
                 text: 'Автор',
                 sort: true,
-                formatter: (v, row) => {
+                formatter: (value) => {
                   return (
-                    v.map(author => author.fio)
-                      .join(', ')
+                    value.map(author => author.fio)
+                         .join(', ')
                   );
                 },
               },
@@ -124,10 +124,10 @@ export default class Books extends Component {
                 dataField: 'genres',
                 text: 'Жанр',
                 sort: true,
-                formatter: (v, row) => {
+                formatter: (value) => {
                   return (
-                    v.map(genre => genre.name)
-                      .join(', ')
+                    value.map(genre => genre.name)
+                         .join(', ')
                   );
                 },
               },
@@ -139,11 +139,11 @@ export default class Books extends Component {
                 },
                 classes: 'Books-Action',
                 events: {
-                  onClick: (e, column, columnIndex, row, rowIndex) => {
+                  onClick: (e, column, columnIndex, row) => {
                     this.deleteBook(row.id);
                   },
                 },
-                formatter: (v, row) => {
+                formatter: () => {
                   return (
                     <DeleteIcon fontSize="small"/>
                   );
@@ -157,11 +157,11 @@ export default class Books extends Component {
                 },
                 classes: 'Books-Action',
                 events: {
-                  onClick: (e, column, columnIndex, row, rowIndex) => {
+                  onClick: (e, column, columnIndex, row) => {
                     history.push(`/library/books/${row.id}`);
                   },
                 },
-                formatter: (v, row) => {
+                formatter: () => {
                   return (
                     <EditIcon fontSize="small"/>
                   );
@@ -175,11 +175,11 @@ export default class Books extends Component {
                 },
                 classes: 'Books-Action',
                 events: {
-                  onClick: (e, column, columnIndex, row, rowIndex) => {
+                  onClick: (e, column, columnIndex, row) => {
                     history.push(`/library/comments/books/${row.id}`);
                   },
                 },
-                formatter: (v, row) => {
+                formatter: () => {
                   return (
                     <ChatOutlinedIcon fontSize="small"/>
                   );

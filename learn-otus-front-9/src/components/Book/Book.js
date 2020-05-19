@@ -14,7 +14,7 @@ export default class Book extends Component {
   state = {
     data: null,
     isLoading: false
-  }
+  };
 
   componentDidMount() {
     const {
@@ -106,12 +106,12 @@ export default class Book extends Component {
     this.setState({data: data});
   };
 
-  handleCancelClick = event => {
+  handleCancelClick = () => {
     const { history } = this.props;
     history.push(`/library/books`);
   };
 
-  handleSaveClick = event => {
+  handleSaveClick = () => {
     const { history } = this.props;
     this.setState({ isLoading: true });
 
@@ -154,7 +154,7 @@ export default class Book extends Component {
       data,
       isLoading,
       isNew
-    } = this.state
+    } = this.state;
 
     if (error) {
       return (

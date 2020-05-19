@@ -6,7 +6,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 
 import './Table.scss';
 
-const NO_DATA_TEXT = 'Данных нет'
+const NO_DATA_TEXT = 'Данных нет';
 
 export default class Table extends Component {
 
@@ -29,7 +29,7 @@ export default class Table extends Component {
 
     getRowStyle: PropTypes.func,
     rowEvents: PropTypes.object
-  }
+  };
 
   static defaultProps = {
     data: [],
@@ -47,11 +47,11 @@ export default class Table extends Component {
 
     getRowStyle: function() { return null },
     rowEvents: {}
-  }
+  };
 
   getRowStyle = (row, rowIndex) => {
     return this.props.getRowStyle(row, rowIndex)
-  }
+  };
 
   render() {
     const {
@@ -66,7 +66,7 @@ export default class Table extends Component {
       hasHover,
       noDataText,
       rowEvents
-    } = this.props
+    } = this.props;
 
     return (
       <div className={cn('TableContainer', containerClass)}>

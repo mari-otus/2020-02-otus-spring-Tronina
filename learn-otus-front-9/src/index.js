@@ -8,7 +8,7 @@ import './index.scss'
 
 import App from './App'
 
-const history = createBrowserHistory()
+const history = createBrowserHistory();
 
 ReactDOM.render((
     <Router history={history}>

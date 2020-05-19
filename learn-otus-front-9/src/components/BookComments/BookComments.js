@@ -15,7 +15,7 @@ export default class BookComments extends Component {
     data: null,
     book: null,
     isLoading: false
-  }
+  };
 
   componentDidMount() {
     const {
@@ -50,7 +50,7 @@ export default class BookComments extends Component {
     fetch(`/library/api/books/${userId}/comments`, { method: 'GET' })
         .then(
           res => {
-            if (res.status == 200) {
+            if (res.status === 200) {
               return res.json();
             } else {
               return [];
@@ -73,7 +73,7 @@ export default class BookComments extends Component {
         )
   };
 
-  handleCancelClick = event => {
+  handleCancelClick = () => {
     const { history } = this.props;
     history.push(`/library/books`);
   };
@@ -84,7 +84,7 @@ export default class BookComments extends Component {
       book,
       data,
       isLoading
-    } = this.state
+    } = this.state;
 
     if (error) {
       return (

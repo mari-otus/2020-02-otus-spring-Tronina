@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 const SECTIONS = [
   { title: 'Книги', href: '/library/books', Icon: Library }
-]
+];
 
 export default class Home extends Component {
 
