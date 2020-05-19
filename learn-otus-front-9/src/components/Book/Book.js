@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Loader from '../Loader/Loader';
 import Error from '../Error/Error';
+import Title from '../Title/Title';
 
 export default class Book extends Component {
 
@@ -171,7 +172,7 @@ export default class Book extends Component {
     return (
       <form noValidate autoComplete="off">
         <Header/>
-        <h2>{title}</h2>
+        <Title value={title} />
         <Container maxWidth="sm">
           {isLoading ? (<Loader/>) : (
             <div className='Book-Body'>

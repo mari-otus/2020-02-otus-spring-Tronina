@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
 import Error from '../Error/Error';
+import Title from '../Title/Title';
 
 export default class Books extends Component {
 
@@ -24,7 +25,7 @@ export default class Books extends Component {
   fetchBooks() {
     this.setState({ isLoading: true })
 
-    fetch("/library/api/books4/")
+    fetch("/library/api/books/")
       .then(res => res.json())
       .then(
         (result) => {
@@ -66,8 +67,6 @@ export default class Books extends Component {
           }
         )
     }
-
-
   }
 
   render() {
@@ -95,10 +94,12 @@ export default class Books extends Component {
     return (
       <div>
         <Header/>
+        <Title value={"Список книг"} />
         {isLoading ? (<Loader/>) : data ? (
           <Table
             data={data}
             rowEvents={rowEvents}
+            hasHover={true}
             columns={[
               {
                 dataField: 'name',

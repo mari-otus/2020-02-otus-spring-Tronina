@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container';
 import Loader from '../Loader/Loader';
 import Table from '../Table/Table';
 import Error from '../Error/Error';
+import Title from '../Title/Title';
 
 export default class BookComments extends Component {
 
@@ -98,9 +99,9 @@ export default class BookComments extends Component {
     return (
       <div>
         <Header/>
-        <h2>{title}</h2>
+        <Title value={title} />
         <Container maxWidth="md">
-          <div className='Book-Body'>
+          <div className='BookComments-Body'>
             {isLoading ? (<Loader/>) : data ? (
               <Table
                 data={data}
@@ -112,7 +113,7 @@ export default class BookComments extends Component {
                 ]}
               />) : 'Нет данных'}
           </div>
-          <Button variant="contained" color="primary" className="Book-Button" onClick={this.handleCancelClick}>
+          <Button variant="contained" color="primary" className="BookComments-Button" onClick={this.handleCancelClick}>
             Выйти
           </Button>
         </Container>
