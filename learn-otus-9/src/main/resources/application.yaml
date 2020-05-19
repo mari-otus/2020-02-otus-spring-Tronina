@@ -12,6 +12,7 @@ spring:
     initialization-mode: always
     schema: classpath:schema.sql
     data: classpath:data.sql
+    sql-script-encoding: utf-8
 
   jpa:
     generate-ddl: false

@@ -74,6 +74,7 @@
         <configuration>
             <source>11</source>
             <target>11</target>
+            <encoding>${project.build.sourceEncoding}</encoding>
             <annotationProcessorPaths>
                 <path>
                     <groupId>org.mapstruct</groupId>
@@ -93,6 +94,14 @@
             </compilerArgs>
         </configuration>
     </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M4</version>
+            <configuration>
+                <argLine>-Dfile.encoding=UTF-8</argLine>
+            </configuration>
+        </plugin>
     </plugins>
 </build>
 </project>

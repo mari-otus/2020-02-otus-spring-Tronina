@@ -109,7 +109,7 @@ comment on column book_genre.book_id is 'Идентификатор книги';
 comment on column book_genre.genre_id is 'Идентификатор жанра';
 
 alter table book_genre
-    add constraint book_fk
+    add constraint genre_book_fk
         foreign key (book_id) references book
             on update cascade on delete cascade;
 
@@ -118,7 +118,7 @@ alter table book_genre
         foreign key (genre_id) references genre
             on update cascade on delete cascade;
 
-alter sequence author_id_seq restart with 10;
-alter sequence genre_id_seq restart with 10;
-alter sequence book_id_seq restart with 10;
-alter sequence comment_book_id_seq restart with 10;
+alter sequence if exists author_id_seq restart with 10;
+alter sequence if exists genre_id_seq restart with 10;
+alter sequence if exists book_id_seq restart with 10;
+alter sequence if exists comment_book_id_seq restart with 10;

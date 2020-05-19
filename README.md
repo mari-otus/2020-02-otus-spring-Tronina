@@ -15,4 +15,6 @@
 6. JPQL, Spring ORM, DAO на основе Spring ORM + JPA - каталог `learn-otus-6`
 7. Библиотека на Spring Data JPA - каталог `learn-otus-7`
 8. Spring Data для подключения к нереляционным БД - каталог `learn-otus-8`
+9. Spring MVC View - каталог `learn-otus-9`, `learn-otus-front-9`
+10. Современные приложения на Spring MVC - каталог `learn-otus-9`, `learn-otus-front-9`
 

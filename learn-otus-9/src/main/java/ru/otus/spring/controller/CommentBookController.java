@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  */
 @RequiredArgsConstructor
 @RestController
-public class CommentController {
+public class CommentBookController {
 
     private final CommentBookService commentBookService;
 
