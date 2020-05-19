@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import { map } from 'underscore'
+import { map } from 'underscore';
 
-import './Home.scss'
+import './Home.scss';
 
-import Header from '../Header/Header'
+import Header from '../Header/Header';
 
-import { ReactComponent as Library } from '../../images/library.svg'
+import { ReactComponent as Library } from '../../images/library.svg';
 import { Link } from 'react-router-dom';
 
 const SECTIONS = [

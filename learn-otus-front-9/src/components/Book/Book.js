@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { TextField } from '@material-ui/core';
 import Header from '../Header/Header';
 
-import './Book.scss'
+import './Book.scss';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Loader from '../Loader/Loader';
+import Error from '../Error/Error';
 
 export default class Book extends Component {
 
@@ -155,7 +156,11 @@ export default class Book extends Component {
     } = this.state
 
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return (
+        <div>
+          <Error message={error.message}/>
+        </div>
+      )
     }
 
     const authors = data?.authors ? data?.authors.map(author => author.fio).join('\n') : "";
@@ -166,10 +171,9 @@ export default class Book extends Component {
     return (
       <form noValidate autoComplete="off">
         <Header/>
-      <Container maxWidth="sm">
-          <div className='Book'>
-            <h2>{title}</h2>
-            {isLoading ? ( <Loader /> ) : (
+        <h2>{title}</h2>
+        <Container maxWidth="sm">
+          {isLoading ? (<Loader/>) : (
             <div className='Book-Body'>
               <TextField
                 label='Наименование'
@@ -224,14 +228,13 @@ export default class Book extends Component {
                 onChange={this.handleGenresClick}
               />
             </div>)}
-          </div>
           <Button variant="contained" color="primary" className="Book-Button" onClick={this.handleSaveClick}>
             Сохранить
           </Button>
           <Button variant="contained" color="primary" className="Book-Button" onClick={this.handleCancelClick}>
             Выйти
           </Button>
-      </Container>
+        </Container>
       </form>
     )
   }

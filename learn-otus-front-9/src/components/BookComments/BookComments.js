@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Header from '../Header/Header';
 
-import './BookComments.scss'
+import './BookComments.scss';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Loader from '../Loader/Loader';
 import Table from '../Table/Table';
+import Error from '../Error/Error';
 
 export default class BookComments extends Component {
 
@@ -85,7 +86,11 @@ export default class BookComments extends Component {
     } = this.state
 
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return (
+        <div>
+          <Error message={error.message}/>
+        </div>
+      )
     }
 
     const title = `Комментарии к книге "${book?.name}"`;
@@ -93,25 +98,24 @@ export default class BookComments extends Component {
     return (
       <div>
         <Header/>
-      <Container maxWidth="sm">
-          <div className='Book'>
-            <h2>{title}</h2>
-            <div className='Book-Body'>
-                {isLoading ? ( <Loader /> ) : data ? (
-                  <Table
-                    data={data}
-                    columns={[
-                      {
-                        dataField: 'comment',
-                        text: 'Комментарии'
-                      }]}
-                  />) : 'Нет данных'}
-              </div>
-            </div>
+        <h2>{title}</h2>
+        <Container maxWidth="md">
+          <div className='Book-Body'>
+            {isLoading ? (<Loader/>) : data ? (
+              <Table
+                data={data}
+                columns={[
+                  {
+                    dataField: 'comment',
+                    text: 'Комментарии',
+                  },
+                ]}
+              />) : 'Нет данных'}
+          </div>
           <Button variant="contained" color="primary" className="Book-Button" onClick={this.handleCancelClick}>
             Выйти
           </Button>
-      </Container>
+        </Container>
       </div>
     )
   }

@@ -1,11 +1,10 @@
+import React, { Component } from 'react';
 
-import React, { Component } from 'react'
+import cn from 'classname';
+import PropTypes from 'prop-types';
+import BootstrapTable from 'react-bootstrap-table-next';
 
-import cn from 'classname'
-import PropTypes from 'prop-types'
-import BootstrapTable from 'react-bootstrap-table-next'
-
-import './Table.scss'
+import './Table.scss';
 
 const NO_DATA_TEXT = 'Данных нет'
 

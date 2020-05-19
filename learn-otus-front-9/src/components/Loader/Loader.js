@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import './Loader.scss'
+import './Loader.scss';
 
-import {ReactComponent as LoaderIcon} from '../../images/loader.svg'
+import { ReactComponent as LoaderIcon } from '../../images/loader.svg';
 
 function Loader ({ style }) {
   return (
