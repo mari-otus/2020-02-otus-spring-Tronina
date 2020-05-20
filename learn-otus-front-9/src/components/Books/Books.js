@@ -48,10 +48,14 @@ export default class Books extends Component {
 
       this.setState({ isLoading: true });
 
-      fetch("/library/api/books/" + id, {
-        method: 'DELETE',
-      })
-        .then(res => res.json())
+      fetch("/library/api/books/" + id, { method: 'DELETE' })
+        .then(res => {
+          if (res.status === 200) {
+            return res.json();
+          } else {
+            return [];
+          }
+        })
         .then(
           (result) => {
             this.setState({

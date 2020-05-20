@@ -8,4 +8,4 @@ spring:
 logging:
   level:
     ru.otus: debug
-    org.springframework: debug
+    org.springframework: info

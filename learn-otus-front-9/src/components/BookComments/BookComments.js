@@ -20,14 +20,14 @@ export default class BookComments extends Component {
   componentDidMount() {
     const {
       match: {
-        params: { id: userId }
+        params: { id: bookId }
       }
     } = this.props;
-    this.fetchBook(userId);
+    this.fetchBook(bookId);
   }
 
-  fetchBook(userId) {
-    fetch(`/library/api/books/${userId}`, { method: 'GET' })
+  fetchBook(bookId) {
+    fetch(`/library/api/books/${bookId}`, { method: 'GET' })
       .then(res => res.json())
       .then(
         (result) => {
@@ -35,7 +35,6 @@ export default class BookComments extends Component {
             isLoading: false,
             book: result
           });
-          this.fetchComments(userId);
         },
         (error) => {
           this.setState({
@@ -43,11 +42,11 @@ export default class BookComments extends Component {
             error
           });
         }
-      )
+      ).then(res => this.fetchComments(bookId));
   };
 
-  fetchComments(userId) {
-    fetch(`/library/api/books/${userId}/comments`, { method: 'GET' })
+  fetchComments(bookId) {
+    fetch(`/library/api/books/${bookId}/comments`, { method: 'GET' })
         .then(
           res => {
             if (res.status === 200) {

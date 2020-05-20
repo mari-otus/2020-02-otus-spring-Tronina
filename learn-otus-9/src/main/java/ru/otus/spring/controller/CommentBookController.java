@@ -15,16 +15,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author Mariya Tronina mariya.tronina@rtlabs.ru
+ * Контроллер для работы с комментариями.
+ *
+ * @author Mariya Tronina
  */
 @RequiredArgsConstructor
 @RestController
 public class CommentBookController {
 
+    /**
+     * Сервис для работы с комментариями.
+     */
     private final CommentBookService commentBookService;
 
     private final CommentMapper commentMapper;
 
+    /**
+     * Возвращает список всех комментариев у книги.
+     *
+     * @param id идентификатор книги
+     * @return список комментариев
+     */
     @GetMapping("books/{id}/comments")
     public ResponseEntity<List<CommentDto>> getBookComments(@PathVariable Long id) {
         List<Comment> comments = commentBookService.getAllComment(id);

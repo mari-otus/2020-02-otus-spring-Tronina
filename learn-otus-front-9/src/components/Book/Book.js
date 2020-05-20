@@ -19,15 +19,15 @@ export default class Book extends Component {
   componentDidMount() {
     const {
       match: {
-        params: { id: userId }
+        params: { id: bookId }
       }
     } = this.props;
-    this.fetchBook(userId);
+    this.fetchBook(bookId);
   }
 
-  fetchBook(userId) {
-    if (userId !== 'new') {
-      fetch(`/library/api/books/${userId}`, { method: 'GET' })
+  fetchBook(bookId) {
+    if (bookId !== 'new') {
+      fetch(`/library/api/books/${bookId}`, { method: 'GET' })
         .then(res => res.json())
         .then(
           (result) => {

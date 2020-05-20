@@ -18,16 +18,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author Mariya Tronina mariya.tronina@rtlabs.ru
+ * Контроллер для работы с книгами.
+ *
+ * @author Mariya Tronina
  */
 @RequiredArgsConstructor
 @RestController
 public class BookController {
 
+    /**
+     * Сервис для работы с книгами.
+     */
     private final BookService bookService;
 
     private final BookMapper bookMapper;
 
+    /**
+     * Возвращает все книги.
+     *
+     * @return список книг.
+     */
     @GetMapping("books")
     public ResponseEntity<List<BookDto>> getAllBook() {
         List<Book> books = bookService.getAllBook();
@@ -39,6 +49,12 @@ public class BookController {
                                         .collect(Collectors.toList()));
     }
 
+    /**
+     * Удаляет книгу по идентификатору.
+     *
+     * @param id идентификатор книги
+     * @return обновленный список книг
+     */
     @DeleteMapping("books/{id}")
     public ResponseEntity<List<BookDto>> removeBook(@PathVariable Long id) {
         bookService.deleteBook(id);
@@ -51,6 +67,12 @@ public class BookController {
                         .collect(Collectors.toList()));
     }
 
+    /**
+     * Возвращает книгу по идентификатору.
+     *
+     * @param id идентификатор книги
+     * @return книга
+     */
     @GetMapping("books/{id}")
     public ResponseEntity<BookDto> getBook(@PathVariable Long id) {
         Book book = bookService.getBook(id);
@@ -60,6 +82,12 @@ public class BookController {
                 .body(bookMapper.bookToBookDto(book));
     }
 
+    /**
+     * Добавляет книгу.
+     *
+     * @param book книга
+     * @return книга
+     */
     @PostMapping("books")
     public ResponseEntity<BookDto> saveBook(@RequestBody BookDto book) {
         Book savedBook = bookService.addBook(bookMapper.bookDtoToBook(book));
