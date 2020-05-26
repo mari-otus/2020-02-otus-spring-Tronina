@@ -1,11 +1,14 @@
 package ru.otus.spring.service.book;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.exception.BookNotFoundException;
-import ru.otus.spring.exception.BookRemoveException;
+import ru.otus.spring.exception.book.BookListEmptyException;
+import ru.otus.spring.exception.book.BookNotFoundException;
+import ru.otus.spring.exception.book.BookNullPointerException;
+import ru.otus.spring.exception.book.BookRemoveException;
 import ru.otus.spring.repository.book.BookRepository;
 
 import java.util.List;
@@ -27,6 +30,9 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public Book addBook(final Book book) {
+        if (book == null) {
+            throw new BookNullPointerException();
+        }
         return bookRepository.save(book);
     }
 
@@ -39,7 +45,11 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     @Override
     public List<Book> getAllBook() {
-        return bookRepository.findAllByOrderByIdAsc();
+        List<Book> books = bookRepository.findAllByOrderByIdAsc();
+        if (CollectionUtils.isEmpty(books)) {
+            throw new BookListEmptyException();
+        }
+        return books;
     }
 
     @Transactional

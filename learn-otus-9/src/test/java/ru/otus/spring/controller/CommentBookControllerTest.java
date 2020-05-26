@@ -1,8 +1,9 @@
 package ru.otus.spring.controller;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -32,6 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Контроллер CommentBookController должен")
 @Sql(value = { "classpath:clearData.sql", "classpath:data.sql" })
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CommentBookControllerTest {
 
     @LocalServerPort
@@ -47,8 +49,9 @@ class CommentBookControllerTest {
     private static final int COMMENT_COUNT = 3;
     private static final List<CommentDto> COMMENT_LIST = new ArrayList<>();
     private static final Long BOOK_ID_DEFAULT = 7L;
+    private static final Long BOOK_ID_NO_COMMENT = 1L;
 
-    @BeforeEach
+    @BeforeAll
     void setUp() {
         baseUrl = "http://localhost:" + port + "/library";
 
@@ -90,5 +93,37 @@ class CommentBookControllerTest {
                 .hasSize(COMMENT_COUNT)
                 .as("Ответ должен содержать все указанные комментарии")
                 .containsExactlyInAnyOrderElementsOf(COMMENT_LIST);
+    }
+
+    @DisplayName("обработать запрос на получении комментариев несуществующей книги")
+    @Test
+    void shouldGetBookNoExistsComments() {
+        final ResponseEntity<List<CommentDto>> result = this.restTemplate
+                .exchange(baseUrl + "/books/{id}/comments",
+                        HttpMethod.GET,
+                        REQUEST_HTTP_ENTITY,
+                        new ParameterizedTypeReference<List<CommentDto>>() {
+                        },
+                        BOOK_ID_DEFAULT + 1000);
+
+        assertThat(result.getStatusCode())
+                .as("Статус ответа должен быть 404 NOT_FOUND")
+                .isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @DisplayName("обработать запрос на получении комментариев книги, у которой нет комментариев")
+    @Test
+    void shouldGetBookEmptyComments() {
+        final ResponseEntity<List<CommentDto>> result = this.restTemplate
+                .exchange(baseUrl + "/books/{id}/comments",
+                        HttpMethod.GET,
+                        REQUEST_HTTP_ENTITY,
+                        new ParameterizedTypeReference<List<CommentDto>>() {
+                        },
+                        BOOK_ID_NO_COMMENT);
+
+        assertThat(result.getStatusCode())
+                .as("Статус ответа должен быть 400 NO_CONTENT")
+                .isEqualTo(HttpStatus.NO_CONTENT);
     }
 }

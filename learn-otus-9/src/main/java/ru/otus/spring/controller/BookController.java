@@ -1,7 +1,6 @@
 package ru.otus.spring.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,10 +40,7 @@ public class BookController {
     @GetMapping("books")
     public ResponseEntity<List<BookDto>> getAllBook() {
         List<Book> books = bookService.getAllBook();
-        return CollectionUtils.isEmpty(books)
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok()
-                                .body(books.stream()
+        return ResponseEntity.ok().body(books.stream()
                                         .map(book -> bookMapper.bookToBookDto(book))
                                         .collect(Collectors.toList()));
     }
@@ -59,10 +55,7 @@ public class BookController {
     public ResponseEntity<List<BookDto>> removeBook(@PathVariable Long id) {
         bookService.deleteBook(id);
         List<Book> books = bookService.getAllBook();
-        return CollectionUtils.isEmpty(books)
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok()
-                .body(books.stream()
+        return ResponseEntity.ok().body(books.stream()
                         .map(book -> bookMapper.bookToBookDto(book))
                         .collect(Collectors.toList()));
     }
@@ -76,10 +69,7 @@ public class BookController {
     @GetMapping("books/{id}")
     public ResponseEntity<BookDto> getBook(@PathVariable Long id) {
         Book book = bookService.getBook(id);
-        return book == null
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok()
-                .body(bookMapper.bookToBookDto(book));
+        return ResponseEntity.ok().body(bookMapper.bookToBookDto(book));
     }
 
     /**
@@ -91,10 +81,7 @@ public class BookController {
     @PostMapping("books")
     public ResponseEntity<BookDto> saveBook(@RequestBody BookDto book) {
         Book savedBook = bookService.addBook(bookMapper.bookDtoToBook(book));
-        return savedBook == null
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok()
-                .body(bookMapper.bookToBookDto(savedBook));
+        return ResponseEntity.ok().body(bookMapper.bookToBookDto(savedBook));
     }
 
 }

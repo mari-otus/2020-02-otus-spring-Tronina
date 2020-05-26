@@ -1,7 +1,7 @@
 package ru.otus.spring.service.comment;
 
 import ru.otus.spring.domain.Comment;
-import ru.otus.spring.exception.CommentBookRemoveException;
+import ru.otus.spring.exception.comment.CommentBookRemoveException;
 
 import java.util.List;
 

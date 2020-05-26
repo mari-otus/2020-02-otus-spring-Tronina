@@ -2,12 +2,14 @@ package ru.otus.spring.service.comment;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Comment;
-import ru.otus.spring.exception.CommentBookAddException;
-import ru.otus.spring.exception.CommentBookRemoveException;
+import ru.otus.spring.exception.comment.CommentBookAddException;
+import ru.otus.spring.exception.comment.CommentBookListEmptyException;
+import ru.otus.spring.exception.comment.CommentBookRemoveException;
 import ru.otus.spring.repository.comment.CommentBookRepository;
 import ru.otus.spring.service.book.BookService;
 
@@ -49,6 +51,9 @@ public class CommentBookServiceImpl implements CommentBookService {
         List<Comment> comments = book.getComments();
         System.out.println("Комментарии к книге: " + book);
         System.out.println("Всего комментариев: " + comments.size());
+        if (CollectionUtils.isEmpty(comments)) {
+            throw new CommentBookListEmptyException();
+        }
         return comments;
     }
 

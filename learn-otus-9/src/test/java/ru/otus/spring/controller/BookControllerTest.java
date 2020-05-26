@@ -1,9 +1,10 @@
 package ru.otus.spring.controller;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -37,6 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Контроллер BookController должен")
 @Sql(value = { "classpath:clearData.sql", "classpath:data.sql" })
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookControllerTest {
 
     @LocalServerPort
@@ -53,7 +55,7 @@ public class BookControllerTest {
     private static final List<BookDto> BOOK_LIST = new ArrayList<>();
     private static final Long BOOK_ID_DEFAULT = 7L;
 
-    @BeforeEach
+    @BeforeAll
     public void setUp() {
         baseUrl = "http://localhost:" + port + "/library";
 
@@ -125,6 +127,21 @@ public class BookControllerTest {
                 .hasSize(BOOK_COUNT)
                 .as("Ответ должен содержать все указанные книги")
                 .containsExactlyInAnyOrderElementsOf(BOOK_LIST);
+    }
+
+    @DisplayName("обработать запрос на получении книги по несуществющему идентификатору")
+    @Test
+    public void shouldGetBookByNoExistsId() {
+        final ResponseEntity<BookDto> result = this.restTemplate
+                .exchange(baseUrl + "/books/{id}",
+                        HttpMethod.GET,
+                        REQUEST_HTTP_ENTITY,
+                        BookDto.class,
+                        BOOK_ID_DEFAULT + 1000);
+
+        assertThat(result.getStatusCode())
+                .as("Статус ответа должен быть 404 NOT_FOUND")
+                .isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @DisplayName("возвращать книгу по идентификатору")
@@ -205,11 +222,25 @@ public class BookControllerTest {
                 .as("Ответ должен содержать новую книгу")
                 .matches(expectedBook ->
                         expectedBook.getName().equals(newBook.getName()) &&
-                        expectedBook.getYearEdition() == newBook.getYearEdition() &&
-                        expectedBook.getId() != null &&
-                        CollectionUtils.size(expectedBook.getAuthors()) == 2 &&
-                        CollectionUtils.size(expectedBook.getGenres()) == 2
+                                expectedBook.getYearEdition() == newBook.getYearEdition() &&
+                                expectedBook.getId() != null &&
+                                CollectionUtils.size(expectedBook.getAuthors()) == 2 &&
+                                CollectionUtils.size(expectedBook.getGenres()) == 2
                 );
+    }
+
+    @DisplayName("обработать случай при добавлении книги = null")
+    @Test
+    public void shouldAddBookIsNull() {
+        final ResponseEntity<BookDto> result = this.restTemplate
+                .exchange(baseUrl + "/books",
+                        HttpMethod.POST,
+                        new HttpEntity<>(null, HTTP_HEADERS),
+                        BookDto.class);
+
+        assertThat(result.getStatusCode())
+                .as("Статус ответа должен быть 400 BAD_REQUEST")
+                .isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @DisplayName("изменять существующую книгу")
