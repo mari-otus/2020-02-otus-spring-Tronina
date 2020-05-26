@@ -1,0 +1,9 @@
+.BookComments-Body {
+  text-align: left;
+}
+
+.BookComments-Button {
+  &.MuiButtonBase-root {
+    margin-right: 10px;
+  }
+}

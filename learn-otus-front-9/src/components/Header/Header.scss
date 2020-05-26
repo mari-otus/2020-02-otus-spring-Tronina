@@ -1,0 +1,17 @@
+.Header-Button {
+  &.MuiButtonBase-root {
+    white-space: nowrap;
+  }
+}
+
+.Header-Icon {
+  width: 45px;
+  height: 45px;
+  fill: white;
+  margin-left: 0;
+}
+
+.Header-Empty {
+  width: 90%;
+}
+

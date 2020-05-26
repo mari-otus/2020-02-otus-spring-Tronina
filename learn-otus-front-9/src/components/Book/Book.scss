@@ -1,0 +1,16 @@
+.Book-Body {
+  text-align: left;
+}
+
+.Book-TextField {
+  &.MuiTextField-root {
+    margin-right: 10px;
+  }
+}
+
+.Book-Button {
+  &.MuiButtonBase-root {
+    margin-right: 10px;
+  }
+}
+
