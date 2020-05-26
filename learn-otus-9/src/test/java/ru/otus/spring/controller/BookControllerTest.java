@@ -129,6 +129,22 @@ public class BookControllerTest {
                 .containsExactlyInAnyOrderElementsOf(BOOK_LIST);
     }
 
+    @Sql(value = "classpath:clearData.sql")
+    @DisplayName("обработать ответ с пустым списком книг")
+    @Test
+    public void shouldGetAllBooksWithEmpty() {
+        final ResponseEntity<List<BookDto>> result = this.restTemplate
+                .exchange(baseUrl + "/books",
+                        HttpMethod.GET,
+                        REQUEST_HTTP_ENTITY,
+                        new ParameterizedTypeReference<List<BookDto>>() {
+                        });
+
+        assertThat(result.getStatusCode())
+                .as("Статус ответа должен быть 400 NO_CONTENT")
+                .isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
     @DisplayName("обработать запрос на получении книги по несуществющему идентификатору")
     @Test
     public void shouldGetBookByNoExistsId() {
