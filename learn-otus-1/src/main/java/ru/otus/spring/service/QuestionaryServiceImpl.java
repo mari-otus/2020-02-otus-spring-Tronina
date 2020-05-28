@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * Сервис для запуска тестирования.
  *
- * @author Mariya Tronina mariya.tronina@rtlabs.ru
+ * @author Mariya Tronina
  * @since 02.03.2020
  */
 public class QuestionaryServiceImpl implements QuestionaryService {

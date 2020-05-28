@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Сервис для работы со списком вопросов.
  *
- * @author Mariya Tronina mariya.tronina@rtlabs.ru
+ * @author Mariya Tronina
  * @since 03.03.2020
  */
 public interface QuestionService {

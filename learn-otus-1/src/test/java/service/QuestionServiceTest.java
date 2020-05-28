@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Тестирование сервиса для работы со списком вопросов.
  *
- * @author Mariya Tronina mariya.tronina@rtlabs.ru
+ * @author Mariya Tronina
  * @since 03.03.2020
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
